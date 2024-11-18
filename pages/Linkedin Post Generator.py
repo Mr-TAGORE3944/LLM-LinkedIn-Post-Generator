@@ -2,11 +2,9 @@ import streamlit as st
 from few_shot import FewShotPosts
 from post_generator import generate_post
 
-
 # Options for length and language
 length_options = ["Short", "Medium", "Long"]
 language_options = ["English", "Hinglish"]
-
 
 # Main app layout
 def main():
@@ -17,6 +15,7 @@ def main():
 
     fs = FewShotPosts()
     tags = fs.get_tags()
+
     with col1:
         # Dropdown for Topic (Tags)
         selected_tag = st.selectbox("Topic", options=tags)
@@ -29,15 +28,12 @@ def main():
         # Dropdown for Language
         selected_language = st.selectbox("Language", options=language_options)
 
-
-
     # Generate Button
     if st.button("Generate"):
         post = generate_post(selected_length, selected_language, selected_tag)
-        st.write(post)
-
-
-
+        st.subheader("Generated Post:")
+        st.code(post, language="")  # Display post with "Copy" functionality
+        st.success("Post generated! Hit copy button to Copy")
 
 # Run the app
 if __name__ == "__main__":
