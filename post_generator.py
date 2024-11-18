@@ -24,10 +24,16 @@ def get_prompt(length, language, tag):
 
     prompt = f'''
     Generate a LinkedIn post using the below information. No preamble.
+    Add some emojis for reader interraction.
+
 
     1) Topic: {tag}
     2) Length: {length_str}
     3) Language: {language}
+
+    if the above information in null or None , leave it and make your own post of given topic 
+    the written post should be relavent to given topic.
+    maintaine the human interaction given post message.
     If Language is Hinglish then it means it is a mix of Hindi and English. 
     The script for the generated post should always be English.
     '''
