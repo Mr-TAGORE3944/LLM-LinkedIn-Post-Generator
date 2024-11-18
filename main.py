@@ -1,42 +1,51 @@
 import streamlit as st
-from few_shot import FewShotPosts
-from post_generator import generate_post
+from streamlit_ace import st_ace
+import io
+import contextlib
 
+def run_text_editor() -> None:
+    """Function to run the text editor with Dracula theme."""
+    
+    # Default code
+    default_code = "# Write your Python code here...\n\nprint('Hello, World!')"
+    
+    # Display the Ace editor with Dracula theme
+    text = st_ace(
+        value=default_code,
+        language="python",
+        theme="dracula",  # Dracula theme
+        height=300,
+        key="ace_editor",
+    )
+    
+    # Run button
+    if st.button("Run"):
+        try:
+            # Capture the stdout and stderr output
+            output_buffer = io.StringIO()
+            with contextlib.redirect_stdout(output_buffer):
+                with contextlib.redirect_stderr(output_buffer):
+                    exec(text, {})  # Execute the code in an isolated namespace
 
-# Options for length and language
-length_options = ["Short", "Medium", "Long"]
-language_options = ["English", "Hinglish"]
+            # Display the output
+            output = output_buffer.getvalue()
+            st.write("**Output:**")
+            st.text(output if output.strip() else "Code executed successfully without output.")
+        
+        except Exception as e:
+            # Display errors in execution
+            st.write("**Error:**")
+            st.text(str(e))
 
+def main() -> None:
+    """Main function to run the app."""
+    
+    st.title("Python Code Editor & Runner with Dracula Theme")
+    st.write("Write your Python code in the Dracula-themed editor below and hit 'Run' to execute.")
+    
+    # Run the text editor
+    run_text_editor()
 
-# Main app layout
-def main():
-    st.subheader("LinkedIn Post Generator: Codebasics")
-
-    # Create three columns for the dropdowns
-    col1, col2, col3 = st.columns(3)
-
-    fs = FewShotPosts()
-    tags = fs.get_tags()
-    with col1:
-        # Dropdown for Topic (Tags)
-        selected_tag = st.selectbox("Topic", options=tags)
-
-    with col2:
-        # Dropdown for Length
-        selected_length = st.selectbox("Length", options=length_options)
-
-    with col3:
-        # Dropdown for Language
-        selected_language = st.selectbox("Language", options=language_options)
-
-
-
-    # Generate Button
-    if st.button("Generate"):
-        post = generate_post(selected_length, selected_language, selected_tag)
-        st.write(post)
-
-
-# Run the app
+# Run the app if __name__ == "__main__":
 if __name__ == "__main__":
     main()
