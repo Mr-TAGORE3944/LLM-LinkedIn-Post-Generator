@@ -6,7 +6,6 @@ client = InferenceClient("Jovie/Midjourney", token="hf_JpttuWrXDUlcTYvMUWubOZTuu
 def main():
     st.subheader("Image Generation with Mid Journey! AI")
     st.markdown("<hr/>", unsafe_allow_html=True)
-    st.markdown("<hr/>", unsafe_allow_html=True)
     
     prompt = st.text_input(label="Enter your prompt here...")
     options = ["realistic", "anime", "toon", "dark", "funny"]

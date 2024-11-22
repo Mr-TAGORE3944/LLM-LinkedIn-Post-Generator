@@ -40,11 +40,32 @@ def run_text_editor() -> None:
 def main() -> None:
     """Main function to run the app."""
     
-    st.title("Python Code Editor & Runner with Dracula Theme")
+    st.subheader("Python Code Editor & Runner with Dracula Theme")
     st.write("Write your Python code in the Dracula-themed editor below and hit 'Run' to execute.")
     
     # Run the text editor
     run_text_editor()
+
+    # Add the footer
+    st.markdown(
+        """
+        <style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            
+            color: white;
+            text-align: center;
+            
+        }
+        </style>
+        <div class="footer">
+            Made with ❤️ in India - Tagore
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # Run the app if __name__ == "__main__":
 if __name__ == "__main__":
