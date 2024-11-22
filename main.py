@@ -52,10 +52,9 @@ def main() -> None:
         <style>
         .footer {
             position: fixed;
-            bottom: 0;
+            bottom: 10%;
             width: 100%;
-            
-            color: white;
+            color: green;
             text-align: center;
             
         }
